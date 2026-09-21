@@ -7,8 +7,8 @@ EXPECTED_QUEUED=
 EXPECTED_LISTED=
 EXPECTED_TOBUILD=
 EXPECTED_BUILT=
-do_bulk -cn ${LISTPORTS}
-assert 0 "$?" "bulk dry-run for bad flavor should not fail"
+do_bulk -cn -d ${LISTPORTS}
+assert 0 "$?" "bulk dry-run for bad flavor should not fail with -d"
 assert_bulk_queue_and_stats
 assert_bulk_build_results
 
@@ -17,8 +17,8 @@ assert 1 "$?" "bulk dry-run for bad flavor should fail with -D"
 assert_bulk_queue_and_stats
 assert_bulk_build_results
 
-do_bulk -c ${LISTPORTS}
-assert 0 "$?" "bulk dry-run for bad flavor should not fail"
+do_bulk -c -d ${LISTPORTS}
+assert 0 "$?" "bulk dry-run for bad flavor should not fail with -d"
 assert_bulk_queue_and_stats
 assert_bulk_build_results
 

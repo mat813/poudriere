@@ -377,6 +377,8 @@ runtest() {
 			bulk-flavor-nonexistent.sh|\
 			bulk-flavor-specific-dep-and-specific-listed-nonexistent.sh|\
 			bulk-flavor-specific-dep-nonexistent.sh|\
+			bulk-strict-deps-default-all.sh|\
+			bulk-strict-deps-default-listpkgs.sh|\
 			distclean-badorigin.sh|\
 			err_catch.sh|\
 			err_catch_framework.sh|\

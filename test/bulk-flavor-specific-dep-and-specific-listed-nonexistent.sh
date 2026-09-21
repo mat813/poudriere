@@ -2,8 +2,8 @@ LISTPORTS="misc/freebsd-release-manifests@foo ports-mgmt/poudriere-devel-dep-FOO
 OVERLAYS="omnibus"
 . ./common.bulk.sh
 
-do_bulk -c -n ${LISTPORTS}
-assert 0 $? "Bulk should not fail due to bad nonexistent flavor"
+do_bulk -c -n -d ${LISTPORTS}
+assert 0 $? "Bulk should not fail due to bad nonexistent flavor with -d"
 
 EXPECTED_TOBUILD="ports-mgmt/pkg misc/foo@default misc/freebsd-release-manifests@foo ports-mgmt/poudriere-devel-dep-FOO"
 EXPECTED_QUEUED="ports-mgmt/pkg misc/foo@default misc/freebsd-release-manifests@foo ports-mgmt/poudriere-devel-dep-FOO"

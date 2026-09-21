@@ -610,6 +610,8 @@ JAIL_TESTS = \
 	bulk-overlay-all.sh \
 	bulk-overlay-specific.sh \
 	bulk-skipped-and-needed-dep.sh \
+	bulk-strict-deps-default-all.sh \
+	bulk-strict-deps-default-listpkgs.sh \
 	distclean-badorigin.sh \
 	distclean-overlays.sh \
 	distclean-smoke.sh \
@@ -2279,6 +2281,20 @@ bulk-overlay-specific.sh.log: bulk-overlay-specific.sh
 bulk-skipped-and-needed-dep.sh.log: bulk-skipped-and-needed-dep.sh
 	@p='bulk-skipped-and-needed-dep.sh'; \
 	b='bulk-skipped-and-needed-dep.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+bulk-strict-deps-default-all.sh.log: bulk-strict-deps-default-all.sh
+	@p='bulk-strict-deps-default-all.sh'; \
+	b='bulk-strict-deps-default-all.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+bulk-strict-deps-default-listpkgs.sh.log: bulk-strict-deps-default-listpkgs.sh
+	@p='bulk-strict-deps-default-listpkgs.sh'; \
+	b='bulk-strict-deps-default-listpkgs.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

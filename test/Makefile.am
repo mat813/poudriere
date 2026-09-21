@@ -226,6 +226,8 @@ JAIL_TESTS= \
 	bulk-overlay-all.sh \
 	bulk-overlay-specific.sh \
 	bulk-skipped-and-needed-dep.sh \
+	bulk-strict-deps-default-all.sh \
+	bulk-strict-deps-default-listpkgs.sh \
 	distclean-badorigin.sh \
 	distclean-overlays.sh \
 	distclean-smoke.sh \

@@ -2,8 +2,8 @@ LISTPORTS="misc/freebsd-release-manifests@nonexistent"
 OVERLAYS="omnibus"
 . ./common.bulk.sh
 
-do_bulk -c -n ${LISTPORTS}
-assert 0 $? "Bulk should not fail due to nonexistent FLAVOR"
+do_bulk -c -n -d ${LISTPORTS}
+assert 0 $? "Bulk should not fail due to nonexistent FLAVOR with -d"
 
 EXPECTED_TOBUILD=
 EXPECTED_QUEUED=
