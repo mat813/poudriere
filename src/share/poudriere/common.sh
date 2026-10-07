@@ -7297,7 +7297,17 @@ deps_fetch_vars() {
 				;;
 			esac
 		esac
-		err 1 "Duplicated origin for ${COLOR_PORT}${_pkgname}${COLOR_RESET}: ${COLOR_PORT}${originspec}${COLOR_RESET} AND ${COLOR_PORT}${_existing_originspec}${COLOR_RESET}. Rerun with -v to see which ports are depending on these."
+		# Two unrelated ports (or FLAVORs) producing the exact same
+		# PKGNAME.  The one already recorded above (whichever was
+		# encountered first) wins; warn and drop this one instead of
+		# aborting the whole run.
+		case "${STRICT_DEPS:-0}" in
+		1)
+			err 1 "Duplicated origin for ${COLOR_PORT}${_pkgname}${COLOR_RESET}: ${COLOR_PORT}${originspec}${COLOR_RESET} AND ${COLOR_PORT}${_existing_originspec}${COLOR_RESET}. Rerun with -v to see which ports are depending on these."
+			;;
+		esac
+		msg_warn "Duplicated PKGNAME ${COLOR_PORT}${_pkgname}${COLOR_RESET}: ${COLOR_PORT}${originspec}${COLOR_RESET} AND ${COLOR_PORT}${_existing_originspec}${COLOR_RESET}; ignoring ${COLOR_PORT}${originspec}${COLOR_RESET} and keeping ${COLOR_PORT}${_existing_originspec}${COLOR_RESET}. Rerun with -v to see which ports are depending on these."
+		return 3
 	fi
 
 	# Discovered a new originspec->pkgname mapping.
@@ -9110,6 +9120,16 @@ gather_port_vars_port() {
 			# Queue us as the main port
 			originspec_encode originspec "${origin}" '' "${origin_subpkg}"
 			# Having $origin_flavor set prevents looping later.
+			;;
+		# Non-fatal: a different port (or FLAVOR) already claimed
+		# this exact PKGNAME.  It was kept, this one was dropped;
+		# nothing more to do for it here.
+		3)
+			qdir="fqueue/${originspec%/*}!${originspec#*/}"
+			if [ -d "${qdir}" ]; then
+				rm -rf "${qdir}"
+			fi
+			return 0
 			;;
 		# Fatal error
 		*)
